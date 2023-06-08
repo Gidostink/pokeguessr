@@ -1,0 +1,102 @@
+.App {
+
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow:clip;
+
+}
+
+.answerChoiceButton {
+
+	
+	margin: 2px;
+	width: 120px;
+	height: 160px;
+	border-radius: 20px;
+	border-width: 0px;
+	background-color: whitesmoke;
+	transition-duration: 0.1s;
+
+}
+
+.answerChoiceButton img {
+
+	width: 100px;
+	height: 100px;
+	transition-duration: 0.1s;
+	
+}
+
+.answerChoiceButton text {
+
+	font-size: 16px;
+	color: black;
+	text-size-adjust: inherit;
+
+}
+
+.answerChoiceButton:hover
+{
+
+	background-color: lightblue;
+	outline: 2px solid royalblue;
+
+}
+
+.answerChoiceButton:active
+{
+	
+	background-color: royalblue;
+
+}
+
+.answerChoices {
+	background-color: white;
+	height: 70%;
+	overflow-y: auto;
+}
+
+button {
+
+	cursor: pointer;
+
+}
+
+.questionDisplay {
+	top: 0;
+	height: 30%;
+	background-color: dodgerblue;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+	overflow-y: auto;
+}
+
+.questionDisplay p {
+		margin: 20px 70px 20px 70px;
+}
+
+.questionDisplay h1 {
+	margin: 30px;
+}
+
+.questionDisplay div {
+
+	border-radius: 10px;
+	padding: 10px;
+	background-color: white;
+	color: black;
+
+}
+
+.answerTilesSpan {
+	
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: table;
+	text-align: center;
+
+}
