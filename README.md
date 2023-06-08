@@ -9,3 +9,4 @@ Currently, it's still far from finished, but progress is being made!
 - Add a scoring system.
 - Filter all Pokédex entries to remove self-referring entries, duplicates, and strange formatting.
 - Create a 'daily challenge' system, where all users get the same seed each day.
+- Add a mode selector, with easier difficulties that reduce the amount of Pokémon to pick from.
