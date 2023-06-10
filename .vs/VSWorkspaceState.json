@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\public\\data",
     "\\src",
-    "\\src\\elements"
+    "\\src\\css",
+    "\\src\\elements",
+    "\\src\\elements\\questionScreen",
+    "\\src\\elements\\questionScreen\\answerChoices",
+    "\\src\\elements\\questionScreen\\questionDisplay"
   ],
   "SelectedNode": "\\tsconfig.json",
   "PreviewInSolutionExplorer": false

@@ -1,4 +1,5 @@
-import { AppScreen, appStateSetScreen, getAppStateGlobal, setAppStateGlobal, startNextQuestion, TEMP_generateNewQuestion } from "./App";
+import { getCurrentURL } from ".";
+import { AppScreen, appStateSetScreen, getAppStateGlobal, setAppStateGlobal, TEMP_generateNewQuestion } from "./App";
 import { AppStateType } from "./App";
 import { deepCloneObject } from "./commonFunctions";
 
@@ -16,7 +17,6 @@ export type PokemonDataLoadedState = {
 	totalPokemonCount: number,
 	pokemonLoadedCount: number
 }
-
 
 function setPokemonLoadedStateLoadStarted(): void {
 
@@ -88,7 +88,7 @@ export async function initAllPokemonData() {
 
 	console.log("Getting Pokemon List!");
 
-	fetch("/data/pokemonList.json")
+	fetch(getCurrentURL() + "/data/pokemonList.json")
 		.then(fetchedData => fetchedData.json())
 		.then((data) => {
 			setAllPokemonListToAppState(data);
@@ -115,7 +115,7 @@ async function importPokemonData(pokemonID: string) {
 	console.debug("Fetching data for " + pokemonID);
 
 	//Fetch the data json for this specific Pokemon.
-	fetch("data/pokemon/" + pokemonID + "/data.json")
+	fetch(getCurrentURL() + "/data/pokemon/" + pokemonID + "/data.json")
 		.then(fetchedData => fetchedData.json())
 		.then((pokemonData) => {
 

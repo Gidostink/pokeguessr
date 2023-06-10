@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPokedexEntryToQuestionState, AppStateType, getAppStateGlobal } from '../../App';
+import { addPokedexEntryToQuestionState, AppStateType, getAppStateGlobal } from '../../../App';
 
 
 function RevealNewPokedexEntryButton(): JSX.Element {

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import './App.css';
+import { getCurrentURL } from '.';
+import './css/App.css';
 import { deepCloneObject } from './commonFunctions';
-import PokemonAnswerChoiceButton from './elements/questionScreen/AnswerChoiceButton';
-import RevealNewPokedexEntryButton from './elements/questionScreen/RevealNewPokedexEntryButton';
+import PokemonAnswerChoiceButton from './elements/questionScreen/answerChoices/AnswerChoiceButton';
+import PokemonSearchInputBox from './elements/questionScreen/answerChoices/AnswerSearchBox';
+import RevealNewPokedexEntryButton from './elements/questionScreen/questionDisplay/RevealNewPokedexEntryButton';
 import { PokemonData, PokemonDataLoadedState } from './pokemonData';
+import QuestionNextButton from './elements/questionScreen/QuestionNextButton';
+import QuestionScreen, { startNextQuestion } from './elements/questionScreen/QuestionScreen';
 
 export enum AppScreen {
 
@@ -37,17 +41,36 @@ export type QuestionData = {
 
 export type QuestionState = {
 
-	selectedPokemonID: string | null,
-	answerSubmitted: boolean,
+	selectedAnswerChoice: string | null,
+	questionComplete: boolean,
 	currentSearchQuery: string,
-	pokedexEntryCount: number
+	pokedexEntryCount: number,
+	questionEvents: QuestionEvent[]
 
 }
 
+export type QuestionEvent = {
 
+	pokedexEventData: PokedexEventData | undefined
+	submittedAnswerEventData: SubmitAnswerEventData | undefined
+
+}
+
+export type PokedexEventData = {
+
+	pokedexEntryText: string
+
+}
+
+export type SubmitAnswerEventData = {
+
+	submittedAnswer: string,
+	wasCorrect: boolean
+
+}
 
 const defaultLoadedState: PokemonDataLoadedState = { "dataInitalized": false, "loadStarted": false, "totalPokemonCount": -1, "pokemonLoadedCount": 0 }
-export const defaultQuestionState: QuestionState = { "answerSubmitted": false, "currentSearchQuery": "", "pokedexEntryCount": 1, "selectedPokemonID": null }
+export const defaultQuestionState: QuestionState = { "questionComplete": false, "currentSearchQuery": "", "pokedexEntryCount": 0, "selectedAnswerChoice": null, questionEvents: [] }
 
 var initalAppState: AppStateType = { currentScreen: AppScreen.LoadingPokemonData, allPokemonData: null, allPokemonList: [], pokemonDataLoadedState: defaultLoadedState, currentQuestion: null, questionState: null }
 
@@ -57,19 +80,6 @@ export function appStateSetScreen(targetScreen: AppScreen) {
 	var newState: AppStateType = deepCloneObject(currentState);
 
 	newState.currentScreen = targetScreen;
-
-	setAppStateGlobal(newState);
-
-}
-
-export function startNextQuestion(inputQuestion: QuestionData): void {
-
-	var currentState: AppStateType = getAppStateGlobal();
-	var newState: AppStateType = deepCloneObject(currentState);
-
-	newState.currentScreen = AppScreen.Question;
-	newState.currentQuestion = inputQuestion;
-	newState.questionState = defaultQuestionState;
 
 	setAppStateGlobal(newState);
 
@@ -89,7 +99,8 @@ export function addPokedexEntryToQuestionState() {
 		return;
 	}
 
-	newState.questionState.pokedexEntryCount++; 
+	newState.questionState.questionEvents.push({ pokedexEventData: { pokedexEntryText: newState.currentQuestion.pokedexEntries[newState.questionState.pokedexEntryCount] }, submittedAnswerEventData: undefined})
+	newState.questionState.pokedexEntryCount++;
 
 	setAppStateGlobal(newState);
 
@@ -140,7 +151,7 @@ function App(): JSX.Element {
 	getAppStateInternal = ((): AppStateType => { return appState });
 
 	if (appState.currentScreen === AppScreen.Question) {
-		return questionScreen();
+		return QuestionScreen();
 	}
 
 	if (appState.currentScreen === AppScreen.LoadingPokemonData) {
@@ -150,57 +161,6 @@ function App(): JSX.Element {
 	return <>I think there's supposed to be a "{appState.currentScreen}" screen here.</>
 
 }
-
-
-
-function questionScreen(): JSX.Element {
-
-	const appState = getAppStateGlobal();
-
-	if (appState.currentQuestion === null) {
-		return <>Question Data is currently empty...</>
-	}
-	if (appState.questionState === null) {
-		return <>Question State is currently empty...</>
-	}
-
-	
-
-	var allPokemonList = appState.allPokemonList;
-
-	var allPokemonElements: JSX.Element[] = [];
-
-	for (let pokemonElementLoop: number = 0; pokemonElementLoop < allPokemonList.length; ++pokemonElementLoop) {
-
-		allPokemonElements.push(<PokemonAnswerChoiceButton pokemonID={allPokemonList[pokemonElementLoop]} key={allPokemonList[pokemonElementLoop]} />);
-
-	}
-
-	var pokedexTextElements: JSX.Element[] = [];
-
-	for (let pokedexTextElementsLoop: number = 0; pokedexTextElementsLoop < appState.questionState.pokedexEntryCount; pokedexTextElementsLoop++) {
-
-		pokedexTextElements.push(<p><div>{appState.currentQuestion.pokedexEntries[pokedexTextElementsLoop]}</div></p>)
-
-	}
-
-	return (
-		<div className="App">
-			<div className="questionDisplay">
-				<h1><div>{appState.currentQuestion.questionText}</div></h1>
-				{pokedexTextElements}
-				<RevealNewPokedexEntryButton/>
-			</div>
-			<div className="answerChoices">
-				<span className="answerTilesSpan">
-					{allPokemonElements}
-				</span>
-			</div>
-		</div>
-	);
-
-}
-
 
 
 function loadingScreen(): JSX.Element {
@@ -238,7 +198,7 @@ export async function TEMP_generateTestQuestion(): Promise<QuestionData> {
 		const pokemonList: string[] = getAppStateGlobal().allPokemonList;
 		const correctPokemonID: string = pokemonList[Math.floor(Math.random() * pokemonList.length)];
 
-		fetch('data/pokemon/' + correctPokemonID + '/pokedex.json')
+		fetch(getCurrentURL() + "/data/pokemon/" + correctPokemonID + "/pokedex.json")
 			.then(fetchedData => fetchedData.json())
 			.then((pokedexData: string[]) => {
 

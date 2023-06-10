@@ -1,0 +1,146 @@
+.App {
+
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow: clip;
+
+}
+
+.answerChoiceButton {
+	margin: 2px;
+	width: 120px;
+	height: 160px;
+	border-radius: 20px;
+	border-width: 0px;
+	background-color: whitesmoke;
+}
+
+.answerChoiceButton:hover {
+	outline: 1px solid dodgerblue;
+	background-color: aliceblue;
+}
+
+.answerChoiceButton:active {
+	outline: 3px solid dodgerblue;
+}
+
+.answerChoiceButton.selectedAnswerChoice {
+	background-color: dodgerblue;
+}
+
+.answerChoiceButton img {
+
+	width: 100px;
+	height: 100px;
+	
+}
+
+.answerChoiceButton text {
+
+	font-size: 16px;
+	color: black;
+	text-size-adjust: inherit;
+
+}
+
+button {
+	transition-duration: 0.1s;
+}
+
+.pokemonSearch {
+	width: 100%;
+	border: 0px;
+	text-align: center;
+	font-size: 18px;
+	padding: 16px 0px 16px 0px;
+	background-color: whitesmoke;
+	border-bottom: 4px solid white;
+}
+
+.questionScreenBottomSection {
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+}
+
+.answerChoices {
+	background-color: white;
+	overflow-y: scroll;
+	height: 100%;
+}
+
+button {
+
+	cursor: pointer;
+
+}
+
+.questionDisplay {
+	top: 0;
+	height: 40%;
+	background-color: dodgerblue;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+	overflow-y: scroll;
+}
+
+.questionDisplay p {
+		margin: 20px 70px 20px 70px;
+}
+
+.questionDisplay h1 {
+	margin: 30px;
+}
+
+.questionDisplay div {
+
+	border-radius: 10px;
+	padding: 10px;
+	background-color: white;
+	color: black;
+
+}
+
+.answerTilesSpan {
+	
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: table;
+	text-align: center;
+	
+
+}
+
+.questionNextButton {
+	
+	min-height: 40px;
+	width: stretch;
+	border-radius: 10px;
+	border: 0px;
+	margin: 10px;
+	font-size: 20px;
+	background-color: darkolivegreen;
+	color: white;
+
+}
+
+.questionNextButtonDiv {
+
+	border-top: 4px solid white;
+	background-color: whitesmoke;
+
+}
+
+.questionNextButton.noAnswerSelected {
+	background-color: darkgray;
+	color: slategrey;
+}
+
+.questionNextButton.nextQuestion {
+	background-color: dodgerblue;
+}
