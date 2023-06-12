@@ -1,6 +1,6 @@
 import React from 'react';
 import { getCurrentURL } from '../../..';
-import { AppStateType, getAppStateGlobal } from '../../../App';
+import App, { AppStateType, getAppStateGlobal } from '../../../App';
 import { PokemonData } from '../../../pokemonData';
 import { setSelectedAnswerChoice } from '../QuestionScreen';
 
@@ -12,6 +12,7 @@ import { setSelectedAnswerChoice } from '../QuestionScreen';
 function PokemonAnswerChoiceButton({ pokemonID }: {pokemonID: string} ): JSX.Element {
 
 	let appState: AppStateType = getAppStateGlobal();
+	let shouldButtonBeDisabled: boolean = false;
 
 	if (!appState.currentQuestion || !appState.questionState) {
 
@@ -21,6 +22,30 @@ function PokemonAnswerChoiceButton({ pokemonID }: {pokemonID: string} ): JSX.Ele
 	}
 
 	function handleClick() {
+
+		let appState = getAppStateGlobal();
+
+		if (!appState.questionState) {
+
+			console.error("Why isn't there a question state already?");
+			return;
+
+		}
+
+		//Make sure the question isn't already complete before selecting this answer choice.
+		if (appState.questionState.questionComplete) {
+
+			console.debug("Button click ignored... This question is already complete.");
+			return;
+
+		}
+
+		//Make sure this answer choice hasn't been submitted before.
+		if (appState.questionState.submittedAnswers.includes(pokemonID)) {
+			console.debug("Button click ignored... This answer has already been submitted.");
+			return;
+		}
+
 
 		setSelectedAnswerChoice(pokemonID);
 
@@ -56,8 +81,22 @@ function PokemonAnswerChoiceButton({ pokemonID }: {pokemonID: string} ): JSX.Ele
 		buttonClass += " selectedAnswerChoice";
 	}
 
+	//Check if this answer has been submitted before.
+	if (appState.questionState.submittedAnswers.includes(pokemonID)) {
 
-	return (<button className={buttonClass} onClick={handleClick}>
+		//If so, add a class to color it, based on its correctness.
+		if (appState.currentQuestion.correctAnswer === pokemonID) {
+			buttonClass += " submittedAnswerChoiceCorrect";
+		} else {
+			buttonClass += " submittedAnswerChoiceIncorrect";
+		}
+
+		shouldButtonBeDisabled = true;
+
+	}
+
+
+	return (<button className={buttonClass} onClick={handleClick} disabled={shouldButtonBeDisabled}>
 
 		<img src={imagePath} alt={`${pokemonData.name}'s Artwork'`} />
 		<br/><b>{pokemonData.name}</b>

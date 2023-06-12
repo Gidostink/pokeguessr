@@ -45,7 +45,8 @@ export type QuestionState = {
 	questionComplete: boolean,
 	currentSearchQuery: string,
 	pokedexEntryCount: number,
-	questionEvents: QuestionEvent[]
+	questionEvents: QuestionEvent[],
+	submittedAnswers: string[]
 
 }
 
@@ -70,7 +71,7 @@ export type SubmitAnswerEventData = {
 }
 
 const defaultLoadedState: PokemonDataLoadedState = { "dataInitalized": false, "loadStarted": false, "totalPokemonCount": -1, "pokemonLoadedCount": 0 }
-export const defaultQuestionState: QuestionState = { "questionComplete": false, "currentSearchQuery": "", "pokedexEntryCount": 0, "selectedAnswerChoice": null, questionEvents: [] }
+export const defaultQuestionState: QuestionState = { "questionComplete": false, "currentSearchQuery": "", "pokedexEntryCount": 0, "selectedAnswerChoice": null, questionEvents: [], submittedAnswers: [] }
 
 var initalAppState: AppStateType = { currentScreen: AppScreen.LoadingPokemonData, allPokemonData: null, allPokemonList: [], pokemonDataLoadedState: defaultLoadedState, currentQuestion: null, questionState: null }
 
