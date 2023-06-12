@@ -123,7 +123,9 @@ function QuestionDisplaySection(): JSX.Element {
 
 	for (let questionEventsLoop: number = 0; questionEventsLoop < appState.questionState.questionEvents.length; questionEventsLoop++) {
 
-		questionEvents.push(<QuestionEventDisplay questionEvent={appState.questionState.questionEvents[questionEventsLoop]} />)
+		let eventElementKey: string = "questionEvent" + questionEventsLoop;
+
+		questionEvents.push(<QuestionEventDisplay key={eventElementKey} questionEvent={appState.questionState.questionEvents[questionEventsLoop]} />)
 
 	}
 
