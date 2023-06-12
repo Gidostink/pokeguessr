@@ -106,23 +106,33 @@ button {
 
 }
 
+.revealPokedexEntryButton {
+
+	background: none;
+	border-radius: 10px;
+	border: 2px solid white;
+	padding: 5px;
+	color: white;
+	margin: 0px 45px 10px 45px;
+	font-weight: bold;
+	font-size: medium;
+
+}
+
 .questionEventDiv.questionPokedexEntry {
-
-	
 	background-color: white;
-	margin: 10px 30px 10px 30px;
-
+	margin: 0px 30px 10px 30px;
 }
 
 .questionEventDiv.correctAnswerSubmission {
 	background-color: forestgreen;
-	margin: 10px 40px 10px 40px;
+	margin: 0px 40px 10px 40px;
 	color: white;
 }
 
 .questionEventDiv.incorrectAnswerSubmission {
 	background-color: orangered;
-	margin: 10px 40px 10px 40px;
+	margin: 0px 40px 10px 40px;
 	color: white;
 }
 
@@ -131,8 +141,9 @@ button {
 	padding: 10px;
 	background-color: white;
 	color: black;
-	margin: 10px 15px 10px 15px;
+	margin: 20px 15px 10px 15px;
 	font-weight: bold;
+	font-size: larger;
 }
 
 .answerTilesSpan {
