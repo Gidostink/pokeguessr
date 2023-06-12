@@ -128,7 +128,7 @@ function QuestionDisplaySection(): JSX.Element {
 	}
 
 	return (<div className="questionDisplay">
-		<h1><div>{appState.currentQuestion.questionText}</div></h1>
+	<div className="questionTitleDiv">{ appState.currentQuestion.questionText } </div>
 		{questionEvents}
 		<RevealNewPokedexEntryButton />
 	</div>);

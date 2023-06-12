@@ -23,7 +23,7 @@ export function QuestionEventDisplay({ questionEvent }: {questionEvent: Question
 
 export function PokedexEventDisplay({ pokedexEvent }: { pokedexEvent: PokedexEventData }): JSX.Element {
 
-    return (<p><div>{pokedexEvent.pokedexEntryText}</div></p>);
+    return (<div className="questionEventDiv questionPokedexEntry" >{pokedexEvent.pokedexEntryText}</div>);
 
 }
 
@@ -47,11 +47,11 @@ export function SubmittedAnswerEventDisplay({answerEvent}: {answerEvent: SubmitA
 
     if (answerEvent.wasCorrect) {
 
-        return (<p>{"Correct! The answer was " + answerName + "."}</p>)
+        return (<div className="questionEventDiv correctAnswerSubmission" >{"The answer was " + answerName + "."}</div>)
 
     } else {
 
-        return (<p>{"Incorrect! The answer was not " + answerName + "."}</p>)  
+        return (<div className="questionEventDiv incorrectAnswerSubmission">{"The answer was not " + answerName + "."}</div>)  
 
     }
 
