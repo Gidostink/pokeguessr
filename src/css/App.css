@@ -119,6 +119,18 @@ button {
 
 }
 
+.revealPokedexEntryButton:hover {
+
+	outline: 1px solid white;
+
+}
+
+.revealPokedexEntryButton:active {
+	outline: 3px solid white;
+}
+
+
+
 .questionEventDiv.questionPokedexEntry {
 	background-color: white;
 	margin: 0px 30px 10px 30px;
