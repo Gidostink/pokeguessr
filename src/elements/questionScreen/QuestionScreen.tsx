@@ -123,12 +123,14 @@ function QuestionDisplaySection(): JSX.Element {
 
 	for (let questionEventsLoop: number = 0; questionEventsLoop < appState.questionState.questionEvents.length; questionEventsLoop++) {
 
-		questionEvents.push(<QuestionEventDisplay questionEvent={appState.questionState.questionEvents[questionEventsLoop]} />)
+		let eventElementKey: string = "questionEvent" + questionEventsLoop;
+
+		questionEvents.push(<QuestionEventDisplay key={eventElementKey} questionEvent={appState.questionState.questionEvents[questionEventsLoop]} />)
 
 	}
 
 	return (<div className="questionDisplay">
-		<h1><div>{appState.currentQuestion.questionText}</div></h1>
+	<div className="questionTitleDiv">{ appState.currentQuestion.questionText } </div>
 		{questionEvents}
 		<RevealNewPokedexEntryButton />
 	</div>);

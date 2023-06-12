@@ -98,21 +98,64 @@ button {
 	overflow-y: scroll;
 }
 
-.questionDisplay p {
-		margin: 20px 70px 20px 70px;
+.questionEventDiv {
+
+	border-radius: 10px;
+	padding: 10px;
+	color: black;
+
 }
 
-.questionDisplay h1 {
-	margin: 30px;
+.revealPokedexEntryButton {
+
+	background: none;
+	border-radius: 10px;
+	border: 2px solid white;
+	padding: 5px;
+	color: white;
+	margin: 0px 45px 10px 45px;
+	font-weight: bold;
+	font-size: medium;
+
 }
 
-.questionDisplay div {
+.revealPokedexEntryButton:hover {
 
+	outline: 1px solid white;
+
+}
+
+.revealPokedexEntryButton:active {
+	outline: 3px solid white;
+}
+
+
+
+.questionEventDiv.questionPokedexEntry {
+	background-color: white;
+	margin: 0px 30px 10px 30px;
+}
+
+.questionEventDiv.correctAnswerSubmission {
+	background-color: forestgreen;
+	margin: 0px 40px 10px 40px;
+	color: white;
+}
+
+.questionEventDiv.incorrectAnswerSubmission {
+	background-color: orangered;
+	margin: 0px 40px 10px 40px;
+	color: white;
+}
+
+.questionTitleDiv {
 	border-radius: 10px;
 	padding: 10px;
 	background-color: white;
 	color: black;
-
+	margin: 20px 15px 10px 15px;
+	font-weight: bold;
+	font-size: larger;
 }
 
 .answerTilesSpan {

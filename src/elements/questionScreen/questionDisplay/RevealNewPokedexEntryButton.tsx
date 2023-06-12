@@ -17,7 +17,13 @@ function RevealNewPokedexEntryButton(): JSX.Element {
 		console.error("Current Question State is null!");
 		return <></>;
 	}
-	
+
+	//Check if the question was already completed
+	if (globalAppState.questionState.questionComplete) {
+
+		return <></>;
+
+	}
 
 	if (globalAppState.questionState.pokedexEntryCount >= globalAppState.currentQuestion.pokedexEntries.length) {
 
@@ -28,7 +34,7 @@ function RevealNewPokedexEntryButton(): JSX.Element {
 		</p>);
 	}
 
-	return (<button onClick={handleClick}>
+	return (<button className="revealPokedexEntryButton" onClick={handleClick}>
 
 		Reveal Another Pok{'\u00e9'}dex Entry
 

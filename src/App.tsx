@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { getCurrentURL } from '.';
 import './css/App.css';
 import { deepCloneObject } from './commonFunctions';
-import PokemonAnswerChoiceButton from './elements/questionScreen/answerChoices/AnswerChoiceButton';
-import PokemonSearchInputBox from './elements/questionScreen/answerChoices/AnswerSearchBox';
-import RevealNewPokedexEntryButton from './elements/questionScreen/questionDisplay/RevealNewPokedexEntryButton';
 import { PokemonData, PokemonDataLoadedState } from './pokemonData';
-import QuestionNextButton from './elements/questionScreen/QuestionNextButton';
 import QuestionScreen, { startNextQuestion } from './elements/questionScreen/QuestionScreen';
 
 export enum AppScreen {
