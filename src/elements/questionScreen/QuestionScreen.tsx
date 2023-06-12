@@ -52,7 +52,6 @@ export function submitSelectedAnswer() {
 	let newState: AppStateType = deepCloneObject(getAppStateGlobal());
 	let wasCorrect = false;
 
-
 	if (!newState.questionState || !newState.currentQuestion) {
 		console.error("Can't submit an answer if we don't even have a full question!");
 		return;
@@ -64,6 +63,8 @@ export function submitSelectedAnswer() {
 		return;
 
 	}
+
+	newState.questionState.submittedAnswers.push(newState.questionState.selectedAnswerChoice) //Add the submitted answer to a list of all submitted answers.
 
 	if (newState.questionState.selectedAnswerChoice === newState.currentQuestion.correctAnswer) {
 
