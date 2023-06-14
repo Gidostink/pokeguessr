@@ -1,1 +1,4 @@
-["Tadbulb shakes its tail to generate electricity. If it senses danger, it will make its head blink on and off to alert its allies.", "It floats using the electricity stored in its body. When thunderclouds are around, Tadbulb will float higher off the ground."]
+[
+    "It floats using the electricity stored in its body. When thunderclouds are around, _____ will float higher off the ground.",
+    "_____ shakes its tail to generate electricity. If it senses danger, it will make its head blink on and off to alert its allies."
+]
