@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getCurrentURL } from '.';
 import './css/App.css';
-import { deepCloneObject } from './commonFunctions';
+import { deepCloneObject, shuffleArray } from './commonFunctions';
 import { PokemonData, PokemonDataLoadedState } from './pokemonData';
 import QuestionScreen, { startNextQuestion } from './elements/questionScreen/QuestionScreen';
 
@@ -199,7 +199,10 @@ export async function TEMP_generateTestQuestion(): Promise<QuestionData> {
 			.then(fetchedData => fetchedData.json())
 			.then((pokedexData: string[]) => {
 
-				var newQuestion: QuestionData = { correctAnswer: correctPokemonID, pokedexEntries: pokedexData, possibleAnswers: pokemonList, questionText: "What species of Pok\u00e9mon is this Pok\u00e9dex entry describing?" }
+
+				let pokedexEntries: string[] = shuffleArray(pokedexData);
+
+				var newQuestion: QuestionData = { correctAnswer: correctPokemonID, pokedexEntries: pokedexEntries, possibleAnswers: pokemonList, questionText: "What species of Pok\u00e9mon is this Pok\u00e9dex entry describing?" }
 
 				resolve(newQuestion);
 

@@ -12,3 +12,21 @@ export function deepCloneObject(objectToClone: object): any {
 
 }
 
+export function shuffleArray(inputArray: any[]): any[] {
+
+    let copyFromArray: any[] = [...inputArray];
+    let returnedArray: any[] = [];
+
+    while (copyFromArray.length >= 1) {
+
+        let removedItem: any = copyFromArray.splice(Math.floor(Math.random() * copyFromArray.length), 1);
+
+        returnedArray.push(removedItem[0]);
+
+        console.log(removedItem);
+
+    }
+
+    return returnedArray;
+
+}
