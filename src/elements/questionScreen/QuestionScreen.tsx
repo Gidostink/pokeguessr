@@ -1,5 +1,6 @@
 import { addPokedexEntryToQuestionState, AppScreen, AppStateType, defaultQuestionState, getAppStateGlobal, QuestionData, setAppStateGlobal } from "../../App";
 import { deepCloneObject } from "../../commonFunctions";
+import { filterPokemon } from "../../pokemonData";
 import PokemonAnswerChoiceButton from "./answerChoices/AnswerChoiceButton";
 import PokemonSearchInputBox from "./answerChoices/AnswerSearchBox";
 import { QuestionEventDisplay } from "./questionDisplay/QuestionEventDisplay";
@@ -158,25 +159,21 @@ function AnswerChoiceSection(): JSX.Element {
 	if (appState.questionState === null) {
 		return <>Question State is currently empty...</>
 	}
+	if (!appState.allPokemonData) {
+		return <>Pokemon Data is currently empty...</>
+	}
 
-	var allPokemonList = appState.allPokemonList;
+	var filteredPokemonList: string[] = filterPokemon(appState.questionState.currentSearchQuery, appState.allPokemonData, appState.currentQuestion.possibleAnswers);
+	console.log(filteredPokemonList);
 
-	//Poor implemention of the search function. It works, but should be replaced with something more maintainable.
 	var allPokemonElements: JSX.Element[] = [];
-	var searchQuery: string | undefined = appState.questionState?.currentSearchQuery;
-	for (let pokemonElementLoop: number = 0; pokemonElementLoop < allPokemonList.length; ++pokemonElementLoop) {
+	for (let pokemonElementLoop: number = 0; pokemonElementLoop < filteredPokemonList.length; pokemonElementLoop++) {
 
-		if (searchQuery !== undefined && searchQuery?.length > 0 && appState.allPokemonData) {
-
-			let pokemonName = appState.allPokemonData[allPokemonList[pokemonElementLoop]].name.toLowerCase();
-
-			if (!pokemonName.includes(searchQuery.toLowerCase())) {
-				continue;
-			}
-
+		if (!filteredPokemonList[pokemonElementLoop]) {
+			continue;
 		}
 
-		allPokemonElements.push(<PokemonAnswerChoiceButton pokemonID={allPokemonList[pokemonElementLoop]} key={allPokemonList[pokemonElementLoop]} />);
+		allPokemonElements.push(<PokemonAnswerChoiceButton pokemonID={filteredPokemonList[pokemonElementLoop]} key={filteredPokemonList[pokemonElementLoop]} />);
 
 	}
 
