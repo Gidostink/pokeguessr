@@ -169,10 +169,12 @@ function dataFinishedLoading() {
 }
 
 
+let filterCacheQuery: string = "";
+let filterCache: string[] = [];
 
 
 //Filter functions!!!
-export function filterPokemon(inputQuery: string, pokemonData: { [key: string]: PokemonData }, basePokemonList: string[]) {
+export function filterPokemon(inputQuery: string, allPokemonData: { [key: string]: PokemonData }, basePokemonList: string[]): string[] {
 
 	if (inputQuery.length < 1) {
 
@@ -180,33 +182,70 @@ export function filterPokemon(inputQuery: string, pokemonData: { [key: string]: 
 
 	}
 
+	if (filterCacheQuery === inputQuery) {
 
-	return runFilter(checkFilterPokemonEntryByID, inputQuery, pokemonData, basePokemonList);
+		return filterCache;
+
+	}
+
+	let unfilteredPokemonList: string[] = [...basePokemonList];
+	let filteredPokemonList: string[] = [];
+
+	//begin running filters
+
+	runFilter(checkFilterPokemonEntryByID, inputQuery, allPokemonData, unfilteredPokemonList, filteredPokemonList);
+	runFilter(checkFilterPokemonEntryByStartName, inputQuery, allPokemonData, unfilteredPokemonList, filteredPokemonList);
+	runFilter(checkFilterPokemonEntryByAnyPointName, inputQuery, allPokemonData, unfilteredPokemonList, filteredPokemonList);
+
+	//end running filters
+
+	filterCacheQuery = inputQuery;
+	filterCache = filteredPokemonList;
+
+	return filteredPokemonList;
 
 
 }
 
-function runFilter(filterFunction: Function, inputQuery: string, pokemonData: { [key: string]: PokemonData }, basePokemonList: string[]) {
+function runFilter(filterFunction: Function, inputQuery: string, allPokemonData: { [key: string]: PokemonData }, unfilteredPokemonList: string[], filteredPokemonList: string[]): void {
 
+	for (let pokeloop: number = 0; pokeloop < unfilteredPokemonList.length; pokeloop++) {
 
+		let targetPokemonData = allPokemonData[unfilteredPokemonList[pokeloop]]
+
+		if (!targetPokemonData) {
+			continue;
+		}
+
+		if (filterFunction(inputQuery, targetPokemonData)) {
+
+			let targetPokemonID: string = unfilteredPokemonList.splice(pokeloop, 1)[0];
+
+			pokeloop--;
+
+			filteredPokemonList.push(targetPokemonID);
+
+		}
+
+	}
 
 }
 
 function checkFilterPokemonEntryByID(inputQuery: string, targetPokemonData: PokemonData ): boolean {
 
-	var pokemonNumberID: string = targetPokemonData.pokemonID.substring(2, targetPokemonData.pokemonID.length);
-	return inputQuery === pokemonNumberID;
+	let pokemonNumberID: string = targetPokemonData.pokemonID.substring(2).toString();
+	return inputQuery.toString() === pokemonNumberID.toString();
 
 }
 
 function checkFilterPokemonEntryByStartName(inputQuery: string, targetPokemonData: PokemonData ): boolean {
 
-	return false;
+	return inputQuery.toLowerCase() === targetPokemonData.name.toLowerCase().substring(0, inputQuery.length);
 
 }
 
-function checkFilterPokemonEntryByAnyPointName(inputQuery: string, pokemonData: PokemonData ): boolean {
+function checkFilterPokemonEntryByAnyPointName(inputQuery: string, targetPokemonData: PokemonData ): boolean {
 
-	return false;
+	return targetPokemonData.name.toLowerCase().includes(inputQuery.toLowerCase());
 
 }
