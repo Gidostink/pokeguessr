@@ -4,6 +4,7 @@ import { filterPokemon } from "../../pokemonData";
 import PokemonAnswerChoiceButton from "./answerChoices/AnswerChoiceButton";
 import PokemonSearchInputBox from "./answerChoices/AnswerSearchBox";
 import { QuestionEventDisplay } from "./questionDisplay/QuestionEventDisplay";
+import QuestionGiveUpButton from "./questionDisplay/QuestionGiveUpButton";
 import RevealNewPokedexEntryButton from "./questionDisplay/RevealNewPokedexEntryButton";
 import QuestionNextButton from "./QuestionNextButton";
 
@@ -80,7 +81,8 @@ export function submitSelectedAnswer() {
 			submittedAnswer: newState.questionState.selectedAnswerChoice,
 			wasCorrect: wasCorrect
 		},
-		pokedexEventData: undefined
+		pokedexEventData: undefined,
+		giveUpEvent: undefined
 	});
 
 	newState.questionState.selectedAnswerChoice = null;
@@ -133,7 +135,8 @@ function QuestionDisplaySection(): JSX.Element {
 	return (<div className="questionDisplay">
 	<div className="questionTitleDiv">{ appState.currentQuestion.questionText } </div>
 		{questionEvents}
-		<RevealNewPokedexEntryButton />
+		<RevealNewPokedexEntryButton /> <br/>
+		<QuestionGiveUpButton />
 	</div>);
 }
 
