@@ -1,4 +1,4 @@
-import { getAppStateGlobal, PokedexEventData, QuestionEvent, SubmitAnswerEventData } from "../../../App";
+import { AppStateType, getAppStateGlobal, PokedexEventData, QuestionEvent, SubmitAnswerEventData } from "../../../App";
 
 export function QuestionEventDisplay({ questionEvent }: {questionEvent: QuestionEvent}): JSX.Element {
 
@@ -16,6 +16,12 @@ export function QuestionEventDisplay({ questionEvent }: {questionEvent: Question
 
     }
 
+    if (questionEvent.giveUpEvent) {
+
+        return <GiveUpEvent/>
+
+    }
+
 
     return <p>Invalid Question Event!!</p>
 
@@ -24,6 +30,32 @@ export function QuestionEventDisplay({ questionEvent }: {questionEvent: Question
 export function PokedexEventDisplay({ pokedexEvent }: { pokedexEvent: PokedexEventData }): JSX.Element {
 
     return (<div className="questionEventDiv questionPokedexEntry" >{pokedexEvent.pokedexEntryText}</div>);
+
+}
+
+export function GiveUpEvent(): JSX.Element {
+
+    let appState: AppStateType = getAppStateGlobal();
+
+    if (!appState.questionState) {
+        return <>No Question State???</>;
+    }
+
+    if (!appState.currentQuestion) {
+        return <>No Current Question???</>;
+    }
+
+    if (!appState.allPokemonData) {
+
+        return <>No Pokemon Data???</>
+
+    }
+
+    let correctAnswerID = appState.currentQuestion.correctAnswer;
+    let pokemonName = appState.allPokemonData[correctAnswerID].name;
+
+
+    return (<div className="questionEventDiv giveUpEvent">{"The correct answer was " + pokemonName + "..."}</div>);
 
 }
 
@@ -47,11 +79,11 @@ export function SubmittedAnswerEventDisplay({answerEvent}: {answerEvent: SubmitA
 
     if (answerEvent.wasCorrect) {
 
-        return (<div className="questionEventDiv correctAnswerSubmission" >{"The answer was " + answerName + "."}</div>)
+        return (<div className="questionEventDiv correctAnswerSubmission" >{"Your guess, " + answerName + ", was correct!"}</div>)
 
     } else {
 
-        return (<div className="questionEventDiv incorrectAnswerSubmission">{"The answer was not " + answerName + "."}</div>)  
+        return (<div className="questionEventDiv incorrectAnswerSubmission">{"Your guess, " + answerName + ", was incorrect..."}</div>)  
 
     }
 

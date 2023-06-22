@@ -50,6 +50,7 @@ export type QuestionEvent = {
 
 	pokedexEventData: PokedexEventData | undefined
 	submittedAnswerEventData: SubmitAnswerEventData | undefined
+	giveUpEvent: true | undefined
 
 }
 
@@ -96,8 +97,38 @@ export function addPokedexEntryToQuestionState() {
 		return;
 	}
 
-	newState.questionState.questionEvents.push({ pokedexEventData: { pokedexEntryText: newState.currentQuestion.pokedexEntries[newState.questionState.pokedexEntryCount] }, submittedAnswerEventData: undefined})
+	newState.questionState.questionEvents.push({ pokedexEventData: { pokedexEntryText: newState.currentQuestion.pokedexEntries[newState.questionState.pokedexEntryCount] }, submittedAnswerEventData: undefined, giveUpEvent: undefined})
 	newState.questionState.pokedexEntryCount++;
+
+	setAppStateGlobal(newState);
+
+}
+
+export function giveUpQuestion() {
+
+	let newState: AppStateType = deepCloneObject(getAppStateGlobal());
+
+	if (newState.questionState === null) {
+		console.warn("This method shouldn't be called before a Question State is initalized.");
+		return;
+	}
+	if (newState.currentQuestion === null) {
+		console.warn("This method shouldn't be called before Question Data is initalized.");
+		return;
+	}
+
+	if (newState.allPokemonData === null) {
+		console.warn("This method should't be called before All Pokemon Data is initalized.");
+		return;
+	}
+
+	newState.questionState.selectedAnswerChoice = null;
+	newState.questionState.questionComplete = true;
+	newState.questionState.questionEvents.push({
+		submittedAnswerEventData: undefined,
+		pokedexEventData: undefined,
+		giveUpEvent: true
+	});
 
 	setAppStateGlobal(newState);
 
