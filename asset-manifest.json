@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/pokeguessr/static/css/main.21140c97.css",
-    "main.js": "/pokeguessr/static/js/main.407af9a8.js",
+    "main.css": "/pokeguessr/static/css/main.e81de4a3.css",
+    "main.js": "/pokeguessr/static/js/main.10664729.js",
     "index.html": "/pokeguessr/index.html",
-    "main.21140c97.css.map": "/pokeguessr/static/css/main.21140c97.css.map",
-    "main.407af9a8.js.map": "/pokeguessr/static/js/main.407af9a8.js.map"
+    "main.e81de4a3.css.map": "/pokeguessr/static/css/main.e81de4a3.css.map",
+    "main.10664729.js.map": "/pokeguessr/static/js/main.10664729.js.map"
   },
   "entrypoints": [
-    "static/css/main.21140c97.css",
-    "static/js/main.407af9a8.js"
+    "static/css/main.e81de4a3.css",
+    "static/js/main.10664729.js"
   ]
 }
